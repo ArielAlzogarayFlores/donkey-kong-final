@@ -26,8 +26,8 @@ public class instantiator : MonoBehaviour
             GameObject clon4 = Instantiate(ball4);
             Timer = 3;
 
-            Destroy(clon1, 8);
-            Destroy(clon2, 8);
+            Destroy(clon1, 9);
+            Destroy(clon2, 9);
             Destroy(clon3, 5);
             Destroy(clon4, 5);
         }

@@ -6,6 +6,7 @@ public class playerController : MonoBehaviour
 {
     float movementSpeed = 0.1f;
     float rotationSpeed = 2;
+    int hasjump;
     Rigidbody rb;
     public float JumpForce;
     public AudioClip salto;
@@ -14,6 +15,7 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hasjump = 2;
         fuenteAudio = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
     }
@@ -29,19 +31,29 @@ public class playerController : MonoBehaviour
         {
             transform.Translate(0, 0, -movementSpeed);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && hasjump > 1)
         {
             transform.Rotate(0, rotationSpeed, 0);
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && hasjump > 1)
         {
             transform.Rotate(0, -rotationSpeed, 0);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && hasjump > 0)
         {
             rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
             fuenteAudio.clip = salto;
             fuenteAudio.Play();
+            hasjump --;
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+
+        if (col.gameObject.tag == "ground")
+        {
+            hasjump = 2;
         }
     }
 }
