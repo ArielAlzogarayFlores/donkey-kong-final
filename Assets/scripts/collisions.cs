@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class collisions : MonoBehaviour
 {
     public GameObject victoria;
+    public GameObject comienzo;
+    public GameObject score;
     public AudioClip ganar;
     public AudioClip morir;
     AudioSource fuenteAudio;
@@ -30,6 +33,10 @@ public class collisions : MonoBehaviour
             victoria.SetActive(false);
             Timervictoria = 5;
         }
+        while (transform.position != spawn)
+        {
+            comienzo.SetActive(false);
+        }
     }
 
     void OnCollisionEnter(Collision col)
@@ -42,6 +49,7 @@ public class collisions : MonoBehaviour
             fuenteAudio.clip = ganar;
             fuenteAudio.Play();
             transform.position = spawn;
+            
         }
         if (col.gameObject.tag == "ball")
         {
