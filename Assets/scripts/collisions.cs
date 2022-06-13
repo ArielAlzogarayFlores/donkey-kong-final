@@ -8,6 +8,7 @@ public class collisions : MonoBehaviour
 {
     public GameObject victoria;
     public GameObject comienzo;
+    public GameObject cube_victoria;
     public Text score;
     public AudioClip ganar;
     public AudioClip morir;
@@ -23,10 +24,6 @@ public class collisions : MonoBehaviour
         spawn = transform.position;
         rotation = transform.eulerAngles;
 
-        while (transform.position != spawn)
-        {
-            comienzo.SetActive(false);
-        }
     }
 
     // Update is called once per frame
@@ -48,8 +45,15 @@ public class collisions : MonoBehaviour
         }
         if (transform.position.y < 0)
         {
+            transform.eulerAngles = rotation;
             transform.position = spawn;
+            fuenteAudio.clip = morir;
+            fuenteAudio.Play();
+            valor = Convert.ToInt32(score.text);
+            valor = 0;
+            score.text = valor.ToString();
         }
+        
     }
 
     void OnCollisionEnter(Collision col)
@@ -67,6 +71,11 @@ public class collisions : MonoBehaviour
             valor ++;
             score.text = valor.ToString();
             
+            for (int i = 0; i < 10; i++)
+            {
+                GameObject clon_victoria = Instantiate(cube_victoria);
+                Destroy(clon_victoria, 2);
+            }
         }
         if (col.gameObject.tag == "ball")
         {
