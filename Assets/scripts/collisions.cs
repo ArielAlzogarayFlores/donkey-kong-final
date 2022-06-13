@@ -71,7 +71,7 @@ public class collisions : MonoBehaviour
             valor ++;
             score.text = valor.ToString();
             
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 GameObject clon_victoria = Instantiate(cube_victoria);
                 Destroy(clon_victoria, 2);
